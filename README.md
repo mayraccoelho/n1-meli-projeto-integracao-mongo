@@ -27,7 +27,7 @@
 <tbody>
 <tr>
 <td>GET</td>
-<td>Clientes</td>
+<td>Listar todos os clientes</td>
 <td>'/clientes'
 </tr>
 
