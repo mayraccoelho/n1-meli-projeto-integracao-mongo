@@ -25,7 +25,7 @@ exports.getCpf = (req, res) => {
     const cpf = req.params.cpf
     Clientes.find({ cpf }, function (err, cliente) {
         if (err) res.status(500).send(err)
-        res.status(200).send(clientes)
+        res.status(200).send(cliente)
     })
 }
 
@@ -36,8 +36,25 @@ exports.postCliente = (req, res) => {
         if (err) res.status(500).send(err)
         res.status(201).send({
             status: true,
-            mensagem: 'Aluna incluida com sucesso'
+            mensagem: 'Cliente incluido com sucesso'
         })
-
     })
 }
+
+//PUT
+exports.updateCliente = (req, res) => {
+    Clientes.updateOne(
+        { cpf: req.params.cpf },
+        { $set: req.body },
+        { upsert: true },
+        function (err) {
+            if (err) return res.status(500).send(err);
+            res.status(200).send({
+                status: true,
+                mensagem: 'Atualizado com sucesso'
+            })
+        }
+    )
+}
+
+//DELETE
