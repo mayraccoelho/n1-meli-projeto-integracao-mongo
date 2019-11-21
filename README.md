@@ -5,6 +5,8 @@
 ### Linguagens
 - Javascript<br>
 - NodeJS<br>
+
+### Banco de Dados
 - MongoDB<br>
 
 ### Dependências
