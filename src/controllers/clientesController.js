@@ -58,3 +58,21 @@ exports.updateCliente = (req, res) => {
 }
 
 //DELETE
+
+exports.delete = (req, res) => {
+    const idClientes = req.params.id
+
+    Clientes.findById(idClientes, function (err, cliente) {
+        if (err) return res.status(500).send(err);
+
+        if (!cliente) {
+            return res.status(200).send({ message: 'Não localizamos o cliente' })
+        }
+
+        cliente.remove(function (err) {
+            if (!err) {
+                res.status(200).send({ message: 'Cliente removido com sucesso' })
+            }
+        })
+    })
+}
