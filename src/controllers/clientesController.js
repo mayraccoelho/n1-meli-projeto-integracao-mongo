@@ -1,4 +1,5 @@
 const Clientes = require('../model/clientes')
+//const Joi = require('joi');
 
 //GET
 exports.getCliente = (req, res) => {
@@ -58,3 +59,16 @@ exports.updateCliente = (req, res) => {
 }
 
 //DELETE
+
+exports.delete = (req, res) => {
+    
+    cliente.delete(function(err){
+        if (err) res.status(500).send(err)
+        else{
+            res.status(201).send({
+                status: true,
+                mensagem: 'Cliente deletado com sucesso'
+            })
+        }
+    })
+}
