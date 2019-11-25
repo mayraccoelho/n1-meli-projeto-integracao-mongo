@@ -7,7 +7,7 @@ const app = express()
 //String de conexão com o MongoDb
 //Conectar localhost "mongodb://localhost:27017/clientes"
 //Conectar Nuvem Prof Marília "mongodb://admin:reprograma1@ds225902.mlab.com:25902/reprogramameli"
-mongoose.connect("mongodb://localhost:27017/clientes", {useNewUrlParser: true})
+mongoose.connect("mongodb+srv://admin:admin1304@cluster0-heovg.mongodb.net/clientes", {useNewUrlParser: true})
 
 //Representação da conexão com o Banco de Dados
 let db = mongoose.connection
@@ -31,6 +31,8 @@ app.use(function (req, res, next) {
     )
     next()
 })
+
+app.use(express.static("public"))
 
 app.use(bodyParser.json())
 
