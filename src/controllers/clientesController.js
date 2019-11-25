@@ -1,8 +1,11 @@
 const Clientes = require('../model/clientes')
+const Joi = require('Joi')
+
 
 //GET
 exports.getCliente = (req, res) => {
-    Clientes.find(function (err, clientes) {
+    const filter = req.query
+    Clientes.find(filter, function (err, clientes) {
         if (err) res.status(500).send(err)
         res.status(200).send(clientes)
     })
@@ -17,7 +20,7 @@ exports.getCompradores = (req, res) => {
                 email: cliente.email
             }
         })
-        res.status(200).send(clientes)
+        res.status(200).send(clientesRetorno)
     })
 }
 
@@ -43,6 +46,9 @@ exports.postCliente = (req, res) => {
 
 //PUT
 exports.updateCliente = (req, res) => {
+
+    if (!validaFormulario(req.body)) return res.status(400).send({ mensagem: "campos inválidos" });
+
     Clientes.updateOne(
         { cpf: req.params.cpf },
         { $set: req.body },
@@ -60,13 +66,13 @@ exports.updateCliente = (req, res) => {
 //DELETE
 
 exports.delete = (req, res) => {
-    const idClientes = req.params.id
+    const cpf = req.params.cpf
 
-    Clientes.findById(idClientes, function (err, cliente) {
+    Clientes.findOne({ cpf }, function (err, cliente) {
         if (err) return res.status(500).send(err);
 
         if (!cliente) {
-            return res.status(200).send({ message: 'Não localizamos o cliente' })
+            return res.status(200).send({ messagem: 'Não localizamos o cliente' })
         }
 
         cliente.remove(function (err) {
@@ -75,4 +81,27 @@ exports.delete = (req, res) => {
             }
         })
     })
+}
+
+//VALIDA FORMULÁRIO - JOI 
+
+const validaFormulario = (campos) => {
+
+    const schema = {
+        nome: Joi.string(),
+        email: Joi.string(),
+        cpf: Joi.number(),
+        dataNascimento: Joi.date(),
+        estadoCivil: Joi.string(),
+        telefone: Joi.number(),
+        comprou: Joi.boolean()
+    }
+
+    const validation = Joi.validate(campos, schema);
+
+    if (validation.error) {
+        return false;
+    }
+
+    return true;
 }

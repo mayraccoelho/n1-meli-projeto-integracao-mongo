@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-mongoose.Schema({})
-
 const clientesSchema = new mongoose.Schema({
     nome: { type: String },
     email: { type: String },
