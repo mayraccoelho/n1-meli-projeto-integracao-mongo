@@ -54,6 +54,12 @@
 <td>Atualizar cliente por CPF</td>
 <td>'/clientes/:cpf'</td>
 </tr>
+
+<tr>
+<td>DELETE</td>
+<td>Deletar cliente por CPF</td>
+<td>'/clientes/:cpf'</td>
+</tr>
 </table>
 
 
