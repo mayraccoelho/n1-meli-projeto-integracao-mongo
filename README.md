@@ -36,7 +36,7 @@
 <tr>
 <td>GET</td>
 <td>Listar por compradores</td>
-<td>'/clientes/compradores'</td>
+<td>'/clientes/:compradores'</td>
 </tr>
 
 <tr>
